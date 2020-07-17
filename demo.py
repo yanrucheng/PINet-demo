@@ -1,4 +1,4 @@
-import os
+import os, sys
 from werkzeug.utils import secure_filename
 from flask import Flask,flash,request,redirect,send_file,render_template
 
@@ -7,6 +7,14 @@ UPLOAD_FOLDER = 'uploads/'
 #app = Flask(__name__)
 app = Flask(__name__, template_folder='templates')
 app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
+
+sys.path.append(os.path.abspath(os.path.join('..', 'PINet')))
+from PINet.test import PINet_Tester
+
+def predict(img_path):
+    tester = PINet_Tester()
+    output_path = tester.test_image(img_path)
+    return output_path
 
 # Upload API
 @app.route('/uploadfile', methods=['GET', 'POST'])
@@ -22,12 +30,17 @@ def upload_file():
         if file.filename == '':
             print('no filename')
             return redirect(request.url)
-        else:
-            filename = secure_filename(file.filename)
-            file.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
-            print("saved file successfully")
-      #send file name as parameter to downlad
-            return redirect('/downloadfile/'+ filename)
+
+        filename = secure_filename(file.filename)
+        filepath = os.path.join(app.config['UPLOAD_FOLDER'], filename)
+        file.save(filepath)
+        print("saved file successfully")
+        # send file name as parameter to downlad
+
+        # predict the result
+        output_path = predict(filepath)
+        output_file = os.path.split(output_path)[1]
+        return redirect('/downloadfile/'+ output_file)
 
     return render_template('upload_file.html')
 
