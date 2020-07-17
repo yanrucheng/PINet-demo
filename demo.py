@@ -9,6 +9,7 @@ app = Flask(__name__, template_folder='templates')
 app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 
 sys.path.append(os.path.abspath(os.path.join('..', 'PINet')))
+sys.path.append(os.path.abspath(os.path.join('..')))
 from PINet.test import PINet_Tester
 
 def predict(img_path):
