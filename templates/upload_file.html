@@ -1,7 +1,59 @@
 <!doctype html>
-    <title>Upload new File</title>
-    <h1>Upload new File</h1>
-    <form action="" method=post enctype=multipart/form-data>
-      <p><input type=file name=file>
-         <input type=submit value=Upload>
-    </form>
+<html>
+	<head>
+		<title>Upload new File</title>
+		<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
+	</head>
+
+	<body class="body">
+		<div class="container text-center">
+			<h1 class="display-4">PINet Lane Detection</h1>
+			<p class="lead">upload your Road image</p>
+
+			<form action="" method=post enctype=multipart/form-data>
+			<p><input type="file" name="file" accept="image/*">
+				<input type="submit" value="Upload">
+			</form>
+		</div>
+	</body>
+
+	<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+	<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js" integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI" crossorigin="anonymous"></script>
+	<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha256-4+XzXVhsDmqanXGHaHvgh1gMQKX40OUvDEBTu8JcmNs=" crossorigin="anonymous"></script>
+
+	<script>
+
+		$("#input-ficons-5").fileinput({
+		uploadUrl: "/file-upload-batch/2",
+		uploadAsync: false,
+		previewFileIcon: '<i class="fa fa-file"></i>',
+		preferIconicPreview: true, // this will force thumbnails to display icons for following file extensions
+		previewFileIconSettings: {
+			// configure your icon file extensions
+			mov: '<i class="far fa-file-video text-warning"></i>',
+			mp3: '<i class="far fa-file-audio text-warning"></i>',
+			img: '<i class="far fa-file-image text-danger"></i>',
+			model: '<i class="fas fa-draw-polygon"></i>',
+		},
+		previewFileExtSettings: {
+			// configure the logic for determining icon file extensions
+			mov: function(ext) {
+			return ext.match(/(avi|mpg|mkv|mov|mp4|3gp|webm|wmv)$/i);
+			},
+			mp3: function(ext) {
+			return ext.match(/(mp3|wav)$/i);
+			},
+			img: function(ext) {
+			return ext.match(/(jpg|gif|png|svg)$/i)
+			},
+			model: function(ext) {
+			return ext.match(/(obj|fbx)$/i)
+			}
+		}
+		});
+
+
+	</script>
+
+</html>
