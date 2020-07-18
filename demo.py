@@ -10,9 +10,9 @@ app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 
 sys.path.append(os.path.abspath(os.path.join('..', 'PINet')))
 sys.path.append(os.path.abspath(os.path.join('..')))
-from PINet.test import PINet_Tester
 
 def predict(img_path):
+    from PINet.test import PINet_Tester
     tester = PINet_Tester()
     output_path = tester.test_image(img_path)
     return output_path
@@ -48,7 +48,9 @@ def upload_file():
 # Download API
 @app.route("/downloadfile/<filename>", methods = ['GET'])
 def download_file(filename):
-    return render_template('download.html',value=filename)
+    prediction_filename = filename
+    input_filename = filename[:-len('_output.jpg')] + '.jpg'
+    return render_template('download.html', origin=input_filename, output=prediction_filename)
 
 @app.route('/return-files/<filename>')
 def return_files_tut(filename):
