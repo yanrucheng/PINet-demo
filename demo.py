@@ -39,17 +39,16 @@ def upload_file():
         # send file name as parameter to downlad
 
         # predict the result
-        output_path = predict(filepath)
-        output_file = os.path.split(output_path)[1]
-        return redirect('/downloadfile/'+ output_file)
+        _ = predict(filepath)
+        return redirect('/downloadfile/'+ filename)
 
     return render_template('upload_file.html')
 
 # Download API
 @app.route("/downloadfile/<filename>", methods = ['GET'])
 def download_file(filename):
-    prediction_filename = filename
-    input_filename = filename[:-len('_output.jpg')] + '.jpg'
+    input_filename = filename
+    prediction_filename = os.path.splitext(filename)[0] + '_output.png'
     return render_template('download.html', origin=input_filename, output=prediction_filename)
 
 @app.route('/return-files/<filename>')
