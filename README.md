@@ -17,7 +17,7 @@ This is a 2020 MSc Project github repository. This project study, reimplement, t
 
 ## Dependency
 We recommend using Anaconda for easier environment mangement
-- $ git clone https://github.com/yanrucheng/PINet-demo.git
+- $ git clone --recurse-submodules https://github.com/yanrucheng/PINet-demo.git
 - $ cd PINet-demo
 - $ conda env create -f pinet_demo.yml
 
