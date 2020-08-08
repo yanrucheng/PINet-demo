@@ -1,0 +1,83 @@
+{% extends "layout.html" %}
+{% from 'macro/members.html' import members %}
+{% from 'macro/navitems.html' import navitems %}
+{% from 'macro/footer.html' import footer %}
+
+{% block content %}
+{{ navitems(3) }}
+<!-- Main -->
+<div id="main">
+	<div class="container">
+		<div class="row main-row">
+			<div class="col-8 col-12-medium">
+
+				<section class="justify-content-center">
+					<h2>PINet Model Description</h2>
+					<p>
+					“PINet”, which stands for Point Instance Network, is an end-to-end framework, which predict key points and cluster those points to each instance, representing each traffic lane. Therefore, it can predict an arbitrary number of lanes rather than a fixed number. 
+
+					</p>
+
+					<div class="row">
+						<img src="/static/media/description/description1.png" alt="Model Description 1" width="50%" class="text-center">
+						<img src="/static/media/description/description2.png" alt="Model Description 2" width="50%">
+					</div>
+
+					<p>
+					PINet was designed adopting two stacked hourglass modules and with three output branches to predict the location of each point and clustering those points together. Moreover, the model is further applied a post-processing step to eliminate outlier of proposed points in order to reduce the false positive rate and smooth each lane.
+					
+					</p>
+				</section>
+
+				<section>
+					<h2>Involved Modules</h2>
+					<p>
+					The most important part of the network: Hourglass module.
+					<br> 
+					<img src="/static/media/description/stackedmodules.png" alt="Stacked Hourglass Modules" width="75%" class="text-center">
+					<br> 
+
+					The hourglass module looks like an hourglass and it is usually applied to key points estimation tasks. 
+					<br> 
+
+					The first part of hourglass, from top to down, known as “encoder”, is used to extract feature from the input image and down-sampling to get high-level feature maps. 
+					<br> 
+
+					And the second part, known as “decoder,” is to up-sample the feature maps from bottom to up and restore them to the original resolution. 
+					<br> 
+
+					Meanwhile, there are some skip connections from encoder to decoder. This structure can make better use of information at every scale and combine local features together with global features. 
+
+					</p>
+					<img src="/static/media/description/hourglass.png" alt="Hourglass Module" width="75%">
+
+
+				</section>
+
+				<section>
+					<h2>PINet Model Training</h2>
+					<p>
+					Here is the visualization of training procedure on Tusimple dataset.
+					<br> 
+
+					The following original images are randomly selected from the Tusimple test dataset and predicted by the model with/without post-processing saved after 100 iterations, 1 epoch, 10 epochs and 50 epochs.
+					<br> 
+					<img src="/static/media/description/training.png" alt="Training Results" width="75%">
+					<br> 
+
+					And here is the quantitative result. 
+					<br> 
+					<img src="/static/media/description/performance.png" alt="Model Performance" width="75%">
+					<br> 
+
+					The result claimed in the paper is state-of-the-art in accuracy and false positive rate compared to other models but the model we trained by ourselves has a little difference from the paper. We will try to figure out the reason and improve the result in the future. 
+					</p>
+				</section>
+
+			</div>
+			{{ members() }}
+		</div>
+	</div>
+	{{ footer() }}
+</div>
+{% endblock %}

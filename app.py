@@ -15,6 +15,14 @@ def predict(img_path):
     output_path = tester.test_image(img_path)
     return output_path
 
+@app.route('/', methods=['GET'])
+def index():
+    return render_template('index.html')
+
+@app.route('/templates/<fname>', methods=['GET'])
+def template(fname):
+    return render_template(fname)
+
 # Upload API
 @app.route('/uploadfile', methods=['GET', 'POST'])
 def upload_file():

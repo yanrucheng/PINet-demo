@@ -1,0 +1,70 @@
+{% extends "layout.html" %}
+{% from 'macro/members.html' import members %}
+{% from 'macro/navitems.html' import navitems %}
+{% from 'macro/footer.html' import footer %}
+
+{% block content %}
+{{ navitems(0) }}
+<!-- Main -->
+<div id="main">
+	<div class="container">
+		<div class="row main-row">
+			<div class="col-md-8 col-sm-12">
+
+				<section>
+					<h2>Demonstration</h2>
+					<video controls id="demoVideo">
+						<source src="/static/media/demo1.mp4" type="video/mp4">
+						Your browser does not support the video tag.
+					</video>
+					<br>
+					<br>
+					<div class="row justify-content-center" id="controlpanel">
+						<div class="col-md-2 col-sm-4 ml-0 pl-2">
+							<button type="button" id='demo_btn_1' class="btn btn-outline-info active">Demo 1 - Nathan Rd.</button>
+						</div>
+						<div class="col-md-2 col-sm-4 ml-0 pl-2">
+							<button type="button" id='demo_btn_2' class="btn btn-outline-info">Demo 2 - Nathan Rd.</button>
+						</div>
+						<div class="col-md-2 col-sm-4 ml-0 pl-2">
+							<button type="button" id='demo_btn_3' class="btn btn-outline-info">Demo 3 - Yan Shan Rd., Shenzhen</button>
+						</div>
+						<div class="col-md-2 col-sm-4 ml-0 pl-2">
+							<button type="button" id='demo_btn_4' class="btn btn-outline-info">Demo 4 - Shahe West Rd., Shenzhen</button>
+						</div>
+						<div class="col-md-2 col-sm-4 ml-0 pl-2">
+							<button type="button" id='demo_btn_5' class="btn btn-outline-info">Demo 5 - Guangshen Highway, Shenzhen</button>
+						</div>
+					</div>
+				</section>
+
+			</div>
+			{{ members() }}
+		</div>
+	</div>
+	{{ footer() }}
+</div>
+{% endblock %}
+
+{% block script %}
+		<script language="javascript">
+			function changeVideo(name) {
+				$("#demoVideo source").attr("src", name);
+				$("#demoVideo")[0].load();
+				$("#demoVideo")[0].play();
+			}
+
+			$(function() {
+				$("#demoVideo")[0].play();
+				let k = $('#controlpanel button').length + 1;
+				for (i = 1; i < k; i++) {
+					let j = i;
+					$('#demo_btn_'+j).click(function () {
+						$('button').removeClass('active');
+						$(this).addClass('active');
+						changeVideo('/static/media/demo'+j+'.mp4');
+					});
+				}
+			});
+		</script>
+{% endblock %}
