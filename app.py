@@ -15,6 +15,13 @@ def predict(img_path):
     output_path = tester.test_image(img_path)
     return output_path
 
+@app.before_request
+def before_request():
+    if not request.is_secure:
+        url = request.url.replace("http://", "https://", 1)
+        code = 301
+        return redirect(url, code=code)
+
 @app.route('/', methods=['GET'])
 def index():
     return render_template('index.html')
