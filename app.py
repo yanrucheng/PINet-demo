@@ -1,4 +1,4 @@
-import os, sys
+import os, sys, glob
 from werkzeug.utils import secure_filename
 from flask import Flask,flash,request,redirect,send_file,render_template
 
@@ -14,6 +14,11 @@ def predict(img_path):
     tester = PINet_Tester()
     output_path = tester.test_image(img_path)
     return output_path
+
+def clear_all_files(path):
+    files = glob.glob(os.path.join(path, '*'))
+    for f in files:
+        f != '.gitkeep' and os.remove(f)
 
 @app.before_request
 def before_request():
@@ -55,7 +60,9 @@ def upload_file():
         _ = predict(filepath)
         return redirect('/downloadfile/'+ filename)
 
-    return render_template('upload_file.html')
+    else:
+        clear_all_files(UPLOAD_FOLDER)
+        return render_template('upload_file.html')
 
 # Download API
 @app.route("/downloadfile/<filename>", methods = ['GET'])
