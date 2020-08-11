@@ -1,27 +1,25 @@
-<!doctype html>
-<html>
-	<head>
-		<title>Upload new File</title>
-		<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
-	</head>
+{% extends "layout.html" %}
+{% from 'macro/members.html' import members %}
+{% from 'macro/navitems.html' import navitems %}
+{% from 'macro/footer.html' import footer %}
 
-	<body class="body">
-		<div class="container text-center">
-			<h1 class="display-4 mt-5 pt-5">PINet Lane Detection</h1>
-			<p class="lead">Upload your road image</p>
+{% block content %}
+{{ navitems(1) }}
+<div id="main">
+	<div class="container text-center">
+		<h1 class="display-4">PINet Lane Detection</h1>
+		<p class="lead">Upload your road image</p>
 
-			<form class="mt-5" action="" method=post enctype=multipart/form-data>
-			<p><input type="file" name="file" accept="image/*">
-				<input type="submit" value="Upload">
-			</form>
-		</div>
-	</body>
+		<form class="mt-5" action="" method=post enctype=multipart/form-data>
+		<p><input type="file" name="file" accept="image/*">
+			<input type="submit" value="Upload">
+		</form>
+	</div>
+</div>
+{{ footer() }}
+{% endblock %}
 
-	<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
-	<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
-	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js" integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI" crossorigin="anonymous"></script>
-	<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha256-4+XzXVhsDmqanXGHaHvgh1gMQKX40OUvDEBTu8JcmNs=" crossorigin="anonymous"></script>
-
+{% block script %}
 	<script>
 
 		$("#input-ficons-5").fileinput({
@@ -55,5 +53,4 @@
 
 
 	</script>
-
-</html>
+{% endblock %}

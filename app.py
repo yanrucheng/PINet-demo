@@ -20,13 +20,6 @@ def clear_all_files(path):
     for f in files:
         f != '.gitkeep' and os.remove(f)
 
-@app.before_request
-def before_request():
-    if not request.is_secure:
-        url = request.url.replace("http://", "https://", 1)
-        code = 301
-        return redirect(url, code=code)
-
 @app.route('/', methods=['GET'])
 def index():
     return render_template('index.html')
@@ -77,4 +70,4 @@ def return_files_tut(filename):
     return send_file(file_path, as_attachment=True, attachment_filename='')
 
 if __name__ == "__main__":
-    app.run(host='0.0.0.0', ssl_context=('cert.pem', 'key.pem'))
+    app.run(host='0.0.0.0')
